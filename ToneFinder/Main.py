@@ -12,9 +12,10 @@ from tkinter import StringVar, IntVar
 from tkinter import filedialog
 import threading
 
-# 9c2d61ea132ddadeed4c55ac378bfabe320e0e7b - Permanent
+# f7ec36f57977f7b1c59456be49c7161e62aed054 - Permanent
 
 import requests
+global credit_text
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -32,8 +33,7 @@ global mimeType
 
 # tkdesigner -o D:/ToneFinderNew https://www.figma.com/file/XQWQf4cVtDRuHA6Krgwzvq/MainMenu-(Copy)?node-id=0%3A1 351991-109ed3fe-19a4-4228-9ac1-52cb7d97a870
 
-# The API key you created in step 1
-DEEPGRAM_API_KEY = '9c2d61ea132ddadeed4c55ac378bfabe320e0e7b'
+DEEPGRAM_API_KEY = 'f7ec36f57977f7b1c59456be49c7161e62aed054'
 
 
 def please():
@@ -45,7 +45,7 @@ window = Tk()
 window.geometry("1440x1024")
 window.state('zoomed')
 window.configure(bg = "#36DEE5")
-window.iconbitmap('C:\\Users\\nethm\\Downloads\\My App Icon.ico')
+window.iconbitmap(relative_to_assets("tonefinder_icon_Dow_icon.ico"))
 window.title("ToneFinder")
 
 global button_1
@@ -178,18 +178,19 @@ def openExplorer():
     global button_10
     global RProcessTitle
     global RProcessSubtitle
+    global button_10_image
 
-    button_image_10 = PhotoImage(
-        file=relative_to_assets("button_10.png"))
+    button_image_11 = PhotoImage(
+        file=relative_to_assets("button_11.png"))
     button_10 = Button(
-        image=button_image_1,
+        image=button_10_image,
         borderwidth=0,
         highlightthickness=0,
         command=startProcessing,
         relief="flat"
     )
     button_10.place(
-        x=545.0,
+        x=580.0,
         y=532.0,
         width=350.0,
         height=111.0
@@ -213,7 +214,7 @@ def openExplorer():
     )
 
     RProcessSubtitle = canvas.create_text(
-        500.0,
+        540.0,
         200.0,
         anchor="nw",
         text=filename,
@@ -307,11 +308,21 @@ async def transcribe():
 
 
 
-
 ################################### Result Showing Functions ########################
+button_12_image = PhotoImage(file=relative_to_assets("button_0.png"))
+button_14_image = PhotoImage(file=relative_to_assets("button_14.png"))
+button_10_image = PhotoImage(file=relative_to_assets("button_10.png"))
+
 def happy():
+    global button_12, button_14
+    global button_12_image
+    global button_14_image
+    global credit_text
+
     canvas.itemconfigure(ProcessTitle, state='hidden')
     canvas.itemconfigure(ProcessSubtitle, state='hidden')
+    canvas.itemconfigure(credit_text, state='hidden')
+    canvas.itemconfigure(footerText,state='normal')
     button_5.place_forget()
     button_6.place_forget()
     button_7.place_forget()
@@ -324,6 +335,34 @@ def happy():
         text=f"HAPPY {happy_emoji}",
         fill="#000000",
         font=("Barlow Condensed Regular", 48 * -1)
+    )
+
+    button_12 = Button(
+        image=button_12_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_1 clicked"),
+        relief="flat"
+    )
+
+    button_14 = Button(
+        image=button_14_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=quit,
+        relief="flat"
+    )
+
+    button_12.place(
+        x=277.0,
+        y=410.0
+    
+    )
+    button_14.place(
+        x=902.0,
+        y=410.0,
+        width=350.0,
+        height=111.0
     )
 
     ResultTitle = canvas.create_text(
@@ -502,6 +541,7 @@ thread = threading.Thread(
 )
 
 
+
 def openProcessingMenu():
     global button_8
     global button_10
@@ -535,6 +575,12 @@ def openProcessingMenu():
 
     canvas.itemconfigure(ProcessTitle, state='normal')
     canvas.itemconfigure(ProcessSubtitle, state='normal')
+    canvas.itemconfigure(credit_text, state='normal')
+
+    canvas.itemconfigure(footerText, state='hidden')
+
+
+
 
 
 canvas = Canvas(
@@ -705,6 +751,7 @@ button_2.place(
     height=154.0
 )
 
+
 ################################## Main Menu End #######################################
 
 ################################# Process Menu Start ##################################
@@ -765,11 +812,24 @@ button_7 = Button(
     relief="flat"
 )
 
+credit_text = canvas.create_text(
+    659.0,
+    691.0,
+    anchor="nw",
+    text=f"Games built by Aqeel Anwar",
+    fill="#000000",
+    font=("Barlow Condensed Regular", 20 * -1)
+)
 
 canvas.itemconfigure(ProcessTitle,state='hidden')
 canvas.itemconfigure(ProcessSubtitle,state='hidden')
+canvas.itemconfigure(credit_text,state='hidden')
 
 
+
+
+def quit():
+    window.destroy()
 
 window.resizable(False, False)
 window.mainloop()
