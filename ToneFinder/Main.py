@@ -12,11 +12,10 @@ from tkinter import StringVar, IntVar
 from tkinter import filedialog
 import threading
 
-# f7ec36f57977f7b1c59456be49c7161e62aed054 - Permanent
-
+import os
+import subprocess
 import requests
 global credit_text
-
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -25,16 +24,13 @@ ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-
 global canvas
 
 global mimeType
 
-
 # tkdesigner -o D:/ToneFinderNew https://www.figma.com/file/XQWQf4cVtDRuHA6Krgwzvq/MainMenu-(Copy)?node-id=0%3A1 351991-109ed3fe-19a4-4228-9ac1-52cb7d97a870
-
-DEEPGRAM_API_KEY = 'f7ec36f57977f7b1c59456be49c7161e62aed054'
-
+# 53e7af871eea59ba966960632dcb550fff77d2ab
+DEEPGRAM_API_KEY = '53e7af871eea59ba966960632dcb550fff77d2ab'
 
 def please():
     print("haha!")
@@ -219,7 +215,7 @@ def openExplorer():
         anchor="nw",
         text=filename,
         fill="#000000",
-        font=("Barlow Condensed Regular", 20 * -1)
+        font=("Agency FB", 20 * -1)
     )
 
 
@@ -233,7 +229,7 @@ def openExplorer():
             anchor="nw",
             text="Looks like you didn't select a file. Please select an file to continue or... it will go wrong!",
             fill="#000000",
-            font=("Barlow Condensed Regular", 30 * -1)
+            font=("Agency FB", 30 * -1)
         )
         button_8.place(
             x=606.0,
@@ -292,18 +288,18 @@ async def transcribe():
             sad_emo = (emotion['emotion']['Sad'])
 
             if (happy_emo > max(angry_emo,fear_emo,bored_emo,sad_emo,excited_emo)):
-                print("happy tone")
+
                 happy()
             elif(angry_emo > max(happy_emo,sad_emo,fear_emo,excited_emo,bored_emo)):
-                print("angry tone")
+                angry()
             elif (fear_emo > max(happy_emo, sad_emo,angry_emo, excited_emo, bored_emo)):
-                print("Fear tone!")
+                fear()
             elif (bored_emo > max(happy_emo, sad_emo, angry_emo, excited_emo, fear_emo)):
-                print("bored tone")
+                bored()
             elif (excited_emo > max(happy_emo, sad_emo, angry_emo, bored_emo, fear_emo)):
-                print("Excited tone")
+                 excited()
             elif (sad_emo > max(happy_emo, excited_emo, angry_emo, bored_emo, fear_emo)):
-                print("sad tone")
+                sad()
 
 
 
@@ -356,7 +352,7 @@ def happy():
     button_12.place(
         x=277.0,
         y=410.0
-    
+
     )
     button_14.place(
         x=902.0,
@@ -382,6 +378,38 @@ def sad():
     button_6.place_forget()
     button_7.place_forget()
 
+    global button_12, button_14
+    global button_12_image
+    global button_14_image
+
+    button_12 = Button(
+        image=button_12_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_1 clicked"),
+        relief="flat"
+    )
+
+    button_14 = Button(
+        image=button_14_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=quit,
+        relief="flat"
+    )
+
+    button_12.place(
+        x=277.0,
+        y=410.0
+
+    )
+    button_14.place(
+        x=902.0,
+        y=410.0,
+        width=350.0,
+        height=111.0
+    )
+
     global resultText
     sad_emoji = emoji.emojize(':crying_face:')
 
@@ -404,12 +432,44 @@ def sad():
     )
 
 
-def Excited():
+def excited():
     canvas.itemconfigure(ProcessTitle, state='hidden')
     canvas.itemconfigure(ProcessSubtitle, state='hidden')
     button_5.place_forget()
     button_6.place_forget()
     button_7.place_forget()
+
+    global button_12, button_14
+    global button_12_image
+    global button_14_image
+
+    button_12 = Button(
+        image=button_12_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_1 clicked"),
+        relief="flat"
+    )
+
+    button_14 = Button(
+        image=button_14_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=quit,
+        relief="flat"
+    )
+
+    button_12.place(
+        x=277.0,
+        y=410.0
+
+    )
+    button_14.place(
+        x=902.0,
+        y=410.0,
+        width=350.0,
+        height=111.0
+    )
 
     global resultText
     excited_emoji = emoji.emojize(':star-struck:')
@@ -440,6 +500,38 @@ def bored():
     button_6.place_forget()
     button_7.place_forget()
 
+    global button_12, button_14
+    global button_12_image
+    global button_14_image
+
+    button_12 = Button(
+        image=button_12_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_1 clicked"),
+        relief="flat"
+    )
+
+    button_14 = Button(
+        image=button_14_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=quit,
+        relief="flat"
+    )
+
+    button_12.place(
+        x=277.0,
+        y=410.0
+
+    )
+    button_14.place(
+        x=902.0,
+        y=410.0,
+        width=350.0,
+        height=111.0
+    )
+
     global resultText
 
     bored_emoji = emoji.emojize(':yawning_face:')
@@ -469,6 +561,38 @@ def fear():
     button_6.place_forget()
     button_7.place_forget()
 
+    global button_12, button_14
+    global button_12_image
+    global button_14_image
+
+    button_12 = Button(
+        image=button_12_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_1 clicked"),
+        relief="flat"
+    )
+
+    button_14 = Button(
+        image=button_14_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=quit,
+        relief="flat"
+    )
+
+    button_12.place(
+        x=277.0,
+        y=410.0
+
+    )
+    button_14.place(
+        x=902.0,
+        y=410.0,
+        width=350.0,
+        height=111.0
+    )
+
     global resultText
     fear_emoji = emoji.emojize(':face_screaming_in_fear:')
 
@@ -497,6 +621,38 @@ def angry():
     button_5.place_forget()
     button_6.place_forget()
     button_7.place_forget()
+
+    global button_12, button_14
+    global button_12_image
+    global button_14_image
+
+    button_12 = Button(
+        image=button_12_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=lambda: print("button_1 clicked"),
+        relief="flat"
+    )
+
+    button_14 = Button(
+        image=button_14_image,
+        borderwidth=0,
+        highlightthickness=0,
+        command=quit,
+        relief="flat"
+    )
+
+    button_12.place(
+        x=277.0,
+        y=410.0
+
+    )
+    button_14.place(
+        x=902.0,
+        y=410.0,
+        width=350.0,
+        height=111.0
+    )
 
 
     global resultText
@@ -616,7 +772,7 @@ MenuSlogan = canvas.create_text(
     559.0,
     215.0,
     anchor="nw",
-    text="We accept over 40 types of Audio Types, including mp4s!",
+    text="We accept various types of Audio Formats, including mp4s!",
     fill="#000000",
     font=("Barlow Condensed", 20 * -1)
 )
@@ -645,18 +801,19 @@ FLAC = Radiobutton(window, text="FLAC Format", variable=mimeType,
 
 
 def runSnakeGame():
-    runpy.run_path("snakegame.py")
+    subprocess.Popen(relative_to_assets("snakegame.exe"))
+
+
 
 def runTicTacToe():
-    runpy.run_path("tictac.py")
+    subprocess.Popen(relative_to_assets("tictac.exe"))
 
 def runDotBoxes():
-    runpy.run_path("dots_boxes.py")
+    subprocess.Popen(relative_to_assets("dots_boxes.exe"))
 
 
 def runRecorder():
-    runpy.run_path("Record.py")
-    print('I try to run it!')
+    subprocess.Popen(relative_to_assets("Record.exe"))
 
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
@@ -696,7 +853,7 @@ Title = canvas.create_text(
     anchor="nw",
     text="ToneFinder",
     fill="#000000",
-    font=("Barlow Condensed Regular", 70 * -1)
+    font=("Agency FB", 70 * -1)
 )
 
 Slogan = canvas.create_text(
@@ -754,12 +911,7 @@ button_2.place(
 
 ################################## Main Menu End #######################################
 
-################################# Process Menu Start ##################################
-# RProcess = Ready to process
 
-def runBothTandS():
-    runSnakeGame()
-    runTranscribe()
 
 
 ################################# Processing Menu Start ##################################
@@ -788,7 +940,7 @@ button_5 = Button(
     image=button_image_5,
     borderwidth=0,
     highlightthickness=0,
-    command=runBothTandS,
+    command=runSnakeGame,
     relief="flat"
 )
 
@@ -835,9 +987,6 @@ window.resizable(False, False)
 window.mainloop()
 
 '''Logic part'''
-
-
-
 
 #  print(response['results']['channels'][0]['alternatives'][0]['transcript'])
 
