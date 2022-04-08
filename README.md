@@ -11,3 +11,13 @@ Let's imagine an entrepreneur who wants to collect feedback from people through 
 Download Executable Application: https://ln5.sync.com/dl/f123c0b70/4a724yhy-avs9irqs-bfzi5dj3-sjaxh24j
 
 [Check out how it works on YouTube](https://youtu.be/o7s7CSEdg5s)
+
+### Tech stack
+ToneFinder's Tech stack is pretty simple. 
+
+- [Deepgram](https://deepgram.com/) for Transcribing
+- Python 3.10 as the main language
+- Tkinter for Frontend
+- [Text to Emotion API](https://komprehend.io/emotion-analysis) form Komprehend.io to find the tone of the text.
+- Figma for GUI design
+
