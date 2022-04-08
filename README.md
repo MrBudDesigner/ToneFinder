@@ -8,6 +8,7 @@ Let's imagine an entrepreneur who wants to collect feedback from people through 
 
 ### How To Run
 Step 1: Clone the Repository
+
 Step 2: Inside ToneFinder folder, run Main.py (Don't change anything else!)
 
 Executable App is on the way 🏎
