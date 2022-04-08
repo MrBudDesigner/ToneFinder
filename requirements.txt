@@ -1,0 +1,10 @@
+deepgram-sdk
+paralleldots
+emoji
+runpy
+requests
+soundfile
+pillow
+numpy
+sounddevice
+queue
