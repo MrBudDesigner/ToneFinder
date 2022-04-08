@@ -20,4 +20,5 @@ Let's imagine an entrepreneur who wants to collect feedback from people through 
 - [Text to Emotion API](https://komprehend.io/emotion-analysis) form Komprehend.io to find the tone of the text.
 - Figma for GUI design
 
+
 Don't forget to drop a star and fork! It means a lot to me ⭐
